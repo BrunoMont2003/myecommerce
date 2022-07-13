@@ -1,9 +1,10 @@
 import { faMountainSun } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import './style.css'
 
 const Logo = () => {
   return (
-    <div className='flex items-center text-2xl mb-4 mr-3'>
+    <div className='logo flex items-center text-2xl mb-4 mr-3 scale-75'>
       <h3 className='font-medium logo-name relative mx-3'>
         <span className='text-nord1 dark:text-nord4'>
           digital
