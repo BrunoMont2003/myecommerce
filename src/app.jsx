@@ -1,9 +1,12 @@
 import React from 'react'
+import { ThemeProvider } from './context/ThemeContext'
 import MyRoutes from './routes'
 
 const App = () => {
   return (
-    <MyRoutes />
+    <ThemeProvider>
+      <MyRoutes />
+    </ThemeProvider>
   )
 }
 

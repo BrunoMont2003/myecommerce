@@ -5,9 +5,10 @@ import Logo from '../common/Logo'
 import './style.css'
 import { useState } from 'react'
 import HiddenPanel from './HiddenPanel'
+import DarkModeToggle from '../DarkModeToggle'
 
 const Navbar = () => {
-  const [panelVisibility, setPanelVisibility] = useState(true)
+  const [panelVisibility, setPanelVisibility] = useState(false)
   const togglePanelVisibility = () => {
     setPanelVisibility(!panelVisibility)
   }
@@ -29,6 +30,7 @@ const Navbar = () => {
         </div>
       </nav>
       <HiddenPanel open={panelVisibility} toggle={togglePanelVisibility} />
+      <DarkModeToggle />
     </>
   )
 }
