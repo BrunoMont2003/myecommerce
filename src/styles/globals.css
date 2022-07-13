@@ -19,3 +19,6 @@
   --nord14: #a3be8c;
   --nord15: #b48ead;
 }
+body{
+  font-family: 'Nunito', sans-serif;
+}

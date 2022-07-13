@@ -1,20 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faCartShopping, faClose, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faCartShopping, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import Logo from '../common/Logo'
-import DarkModeToggle from '../DarkModeToggle'
 import './style.css'
 import { useState } from 'react'
-const HiddenPanel = ({ open = true, toggle }) => {
-  return (
-    <div className={`min-h-screen w-full z-10  absolute top-0 transition-all duration-200 ease-in  ${open ? '-left-0' : '-left-full'} bg-nord4 dark:bg-nord1 px-5 py-7`}>
-      <div className='flex items-center justify-between'>
-        <Logo />
-        <FontAwesomeIcon icon={faClose} className='text-xl cursor-pointer text-nord2 dark:text-nord5' onClick={toggle} />
-      </div>
-    </div>
-  )
-}
+import HiddenPanel from './HiddenPanel'
 
 const Navbar = () => {
   const [panelVisibility, setPanelVisibility] = useState(true)
@@ -38,7 +28,6 @@ const Navbar = () => {
           <FontAwesomeIcon icon={faBars} className='text-lg cursor-pointer' onClick={togglePanelVisibility} />
         </div>
       </nav>
-      <DarkModeToggle />
       <HiddenPanel open={panelVisibility} toggle={togglePanelVisibility} />
     </>
   )
