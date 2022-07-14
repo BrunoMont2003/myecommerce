@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faCartShopping, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faCartShopping } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import Logo from '../common/Logo'
 import './style.css'
@@ -7,6 +7,7 @@ import { useState } from 'react'
 import HiddenPanel from './HiddenPanel'
 import DarkModeToggle from '../DarkModeToggle'
 import NavItems from './NavItems'
+import SearchBar from '../common/SearchBar'
 
 const Navbar = () => {
   const [panelVisibility, setPanelVisibility] = useState(false)
@@ -20,11 +21,8 @@ const Navbar = () => {
           <Logo />
         </Link>
         <NavItems />
-        <div className='flex items-center gap-5 text-nord2 dark:text-nord5'>
-          <form action='#' className='relative'>
-            <input type='text' className='rounded-lg h-10 bg-transparent border shadow border-gray-300 px-5 focus:outline-none w-32 sm:w-48' placeholder='Search' />
-            <FontAwesomeIcon icon={faSearch} className='absolute right-5 top-3 text-nord9  dark:text-nord9' />
-          </form>
+        <div className='flex lg:items-center gap-5 text-nord2 dark:text-nord5'>
+          <SearchBar />
           <Link to='#'>
             <FontAwesomeIcon icon={faCartShopping} className='text-lg' />
           </Link>
