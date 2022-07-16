@@ -5,6 +5,7 @@ import Logo from '../common/Logo'
 import DarkModeToggle from '../DarkModeToggle'
 import './style.css'
 import Button from '../common/Button'
+import NavItems from './NavItems'
 const HiddenPanel = ({ open = true, toggle }) => {
   return (
     <div className={`min-h-screen w-full z-10  absolute top-0 transition-all duration-200 ease-in  ${open ? '-left-0' : '-left-full'} bg-nord4 dark:bg-nord1 px-5 py-7 lg:hidden`}>
@@ -23,11 +24,12 @@ const HiddenPanel = ({ open = true, toggle }) => {
           </div>
           <span className='font-bold text-nord1 dark:text-nord5'>My Profile</span>
         </div>
-        <div className='py-5 grid grid-cols-2 gap-5'>
+        <div className='grid grid-cols-2 gap-5'>
           <Button className='text-nord4 dark:text-nord1 bg-nord8 font-bold hover:bg-nord9'>Log in</Button>
           <Button className='border border-nord9 text-nord9 dark:border-nord8 dark:text-nord8 font-bold hover:bg-nord5 dark:hover:bg-nord2'>Register</Button>
         </div>
       </div>
+      <NavItems className='p-5  grid place-content-stretch place-items-stretch' />
     </div>
   )
 }

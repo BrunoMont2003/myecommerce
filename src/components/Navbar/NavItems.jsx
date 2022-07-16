@@ -1,7 +1,7 @@
 import React from 'react'
 import NavItem from './NavItem'
 
-const NavItems = () => {
+const NavItems = ({ className }) => {
   const categories = [
     { name: 'kids', path: '/' },
     { name: 'shoes', path: '/' },
@@ -9,7 +9,7 @@ const NavItems = () => {
     { name: 'sports', path: '/' }
   ]
   return (
-    <ul className='gap-5 hidden lg:flex'>
+    <ul className={`${className}`}>
       {
         categories.map((category, index) => (
           <NavItem key={index} object={category} />
