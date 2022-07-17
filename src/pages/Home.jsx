@@ -1,10 +1,12 @@
+import Carousel from '../components/Carousel'
 import Layout from '../layouts'
-import { getAllItems } from '../services/Items'
+import { getAllItems, getCategories } from '../services/Items'
 const Home = () => {
-  getAllItems()
+  getCategories()
+
   return (
     <Layout>
-      hola
+      <Carousel />
     </Layout>
   )
 }

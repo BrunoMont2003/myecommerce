@@ -5,9 +5,11 @@ const Layout = ({ children }) => {
   return (
     <>
       <Header />
-      {
+      <main className='py-5'>
+        {
         children
-      }
+        }
+      </main>
       <Footer />
     </>
   )
