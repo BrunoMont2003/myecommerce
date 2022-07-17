@@ -20,7 +20,7 @@ const MyCarousel = () => {
   ]
   return (
 
-    <div className='px-5 lg:w-3/4 mx-auto my-5 h-56 sm:h-64 xl:h-80 2xl:h-96'>
+    <div className='my-5 h-56 sm:h-64 xl:h-80 2xl:h-96'>
       <Carousel slideInterval={5000} indicators={false}>
         {
             items.map(({ img, caption }, index) => (
