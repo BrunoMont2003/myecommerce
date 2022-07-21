@@ -17,7 +17,7 @@ const Navbar = () => {
   }
   return (
     <>
-      <nav className='w-full p-7 flex items-center px-5 bg-nord4 dark:bg-nord1 dark:text-white justify-between'>
+      <nav className='w-full py-7 flex items-center px-5 bg-nord4 dark:bg-nord1 dark:text-white justify-between'>
         <Link to='/'>
           <Logo />
         </Link>

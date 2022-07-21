@@ -1,0 +1,17 @@
+.snap-mandatory {
+  border-radius: 0% !important;
+}
+[data-testid='carousel-item'] div:first-child {
+    position: unset !important;
+    width: 100%;
+    --tw-translate-y: 0%;
+    --tw-translate-x: 0%;
+}
+.slide-image{
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    object-fit: cover;
+    background-position: top top ;
+    background-repeat: no-repeat;
+}

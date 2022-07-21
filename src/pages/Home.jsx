@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import Carousel from '../components/Carousel'
+import Catalogue from '../components/Catalogue'
 import FilterModal from '../components/FilterModal'
 import Layout from '../layouts'
 import { getCategories } from '../services/Items'
@@ -17,7 +18,6 @@ const Home = () => {
     <Layout>
       <Carousel />
       <div className='px-5'>
-
         <h2 className='text-3xl mb-5'>
           Products
         </h2>
@@ -32,6 +32,7 @@ const Home = () => {
             </select>
           </div>
         </div>
+        <Catalogue />
       </div>
     </Layout>
   )

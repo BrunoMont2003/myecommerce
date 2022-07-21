@@ -3,6 +3,7 @@ import React from 'react'
 import toys from '/images/toys.jpg'
 import sports from '/images/sports.jpg'
 import music from '/images/music.jpg'
+import './style.css'
 const MyCarousel = () => {
   const items = [
     {
@@ -20,13 +21,13 @@ const MyCarousel = () => {
   ]
   return (
 
-    <div className='my-5 h-56 sm:h-64 xl:h-80 2xl:h-96'>
+    <div className='mb-5 h-56 sm:h-64 xl:h-[calc(100vh-104px)]'>
       <Carousel slideInterval={5000} indicators={false}>
         {
             items.map(({ img, caption }, index) => (
-              <div key={index} className='h-full flex items-center justify-center bg-gray-400 dark:bg-gray-700 dark:text-white'>
-                <img src={img} className='slide-image opacity-70' alt={caption} />
-                <span className='absolute bg-opacity-80 bottom-0 text-white  bg-nord2 py-2 w-full uppercase font-black text-xl text-center'>{caption}</span>
+              <div key={index} className='h-full flex items-center justify-center flex-col bg-gray-400 dark:bg-gray-700 dark:text-white'>
+                <div style={{ backgroundImage: 'url(' + img + ')' }} className='slide-image opacity-70' alt={caption} />
+                <span className='absolute bottom-0 bg-opacity-80 text-white  bg-nord2 py-2 lg:py-4 w-full uppercase font-black text-xl text-center'>{caption}</span>
               </div>
             ))
         }
