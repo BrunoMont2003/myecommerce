@@ -15,8 +15,6 @@ const FilterModal = ({ categories }) => {
   const [minInputValue, setMinInputValue] = useState({ value: undefined })
   const [maxInputValue, setMaxInputValue] = useState({ value: undefined })
   useEffect(() => {
-    console.log('filter saved', filter.categories)
-    console.log('change filter', changeFilter)
     removePrice && console.log('remove price', removePrice)
     if (removePrice === 'max') {
       setMaxInputValue({ value: '' })
