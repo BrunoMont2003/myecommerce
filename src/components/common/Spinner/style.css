@@ -1,0 +1,58 @@
+:root {
+  --size: 75px;
+  --clr1: #bf616a;
+  --clr2: #d08770;
+  --clr3: #ebcb8b;
+  --clr4: #a3be8c;
+  --clr5: #b48ead;
+}
+
+
+
+
+
+.spinner {
+  --animation-duration: 1000ms;
+
+  width: var(--size);
+  height: var(--size);
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.spinner-item {
+  width: calc(var(--size) / 12);
+  height: 80%;
+  background: var(--clr-spinner);
+  animation: spinner1 var(--animation-duration) ease-in-out infinite;
+}
+@keyframes spinner1 {
+  50% {
+    transform: scaleY(0.25);
+  }
+}
+
+.spinner-item:nth-child(1) {
+    --clr-spinner: var(--clr1);
+    animation-delay: calc(var(--animation-duration) / 10 * -3);
+}
+
+.spinner-item:nth-child(2) {
+    --clr-spinner: var(--clr5);
+    animation-delay: calc(var(--animation-duration) / 10 * -1);
+}
+
+.spinner-item:nth-child(3) {
+    --clr-spinner: var(--clr3);
+    animation-delay: calc(var(--animation-duration) / 10 * -2);
+}
+
+.spinner-item:nth-child(4) {
+    --clr-spinner: var(--clr4);
+    animation-delay: calc(var(--animation-duration) / 10 * -1);
+}
+
+.spinner-item:nth-child(5) {
+    --clr-spinner: var(--clr2);
+    animation-delay: calc(var(--animation-duration) / 10 * -3);
+}

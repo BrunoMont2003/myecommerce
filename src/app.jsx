@@ -1,11 +1,14 @@
 import React from 'react'
+import { FilterProvider } from './context/FilterContext'
 import { ThemeProvider } from './context/ThemeContext'
 import MyRoutes from './routes'
 
 const App = () => {
   return (
     <ThemeProvider>
-      <MyRoutes />
+      <FilterProvider>
+        <MyRoutes />
+      </FilterProvider>
     </ThemeProvider>
   )
 }
