@@ -10,7 +10,7 @@ import { getCategories } from '../services/Items'
 import { removeItem } from '../Utils/Array'
 const Home = () => {
   const [categories, setCategories] = useState(null)
-  const { sortBy, setSortBy, filter, setFilter, applyFilter, removePrice, setRemovePrice } = useFilterContext()
+  const { sortBy, setSortBy, filter, setFilter, applyFilter, setRemovePrice } = useFilterContext()
   useEffect(() => {
     fetchCategories()
   }, [applyFilter])
