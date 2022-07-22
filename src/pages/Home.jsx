@@ -26,10 +26,12 @@ const Home = () => {
   return (
     <Layout>
       <Carousel />
-      <div className='px-5'>
-        <h2 className='text-3xl mb-5'>
+      <div className='px-5 xl:w-[95%] xl:mx-auto py-5'>
+        <hr className='border my-3' />
+        <h2 className='text-3xl my-5'>
           Products
         </h2>
+        <hr className='border my-3' />
         <div className='flex justify-between'>
           <FilterModal categories={categories} />
           <div className='flex gap-2 justify-end items-center'>
