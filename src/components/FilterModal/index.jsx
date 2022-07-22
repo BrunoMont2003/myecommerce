@@ -11,10 +11,26 @@ import Spinner from '../common/Spinner'
 const FilterModal = ({ categories }) => {
   const [showModal, setShowModal] = useState(false)
   const [clickCategory, setClickCategory] = useState(false)
-  const { filter, setFilter, setApplyFilter, applyFilter, changeFilter, setChangeFilter } = useFilterContext()
+  const { filter, setFilter, setApplyFilter, changeFilter, setChangeFilter, removePrice, setRemovePrice } = useFilterContext()
+  const [minInputValue, setMinInputValue] = useState({ value: undefined })
+  const [maxInputValue, setMaxInputValue] = useState({ value: undefined })
   useEffect(() => {
     console.log('filter saved', filter.categories)
-  }, [applyFilter])
+    console.log('change filter', changeFilter)
+    removePrice && console.log('remove price', removePrice)
+    if (removePrice === 'max') {
+      setMaxInputValue({ value: '' })
+      setRemovePrice(false)
+    }
+    if (removePrice === 'min') {
+      setMinInputValue({ value: '' })
+      setRemovePrice(false)
+    }
+    if (!removePrice) {
+      setMaxInputValue({ value: undefined })
+      setMinInputValue({ value: undefined })
+    }
+  }, [changeFilter, removePrice])
   const handleClickCategory = ({ target: { textContent } }) => {
     const previousFilter = filter
     filter.categories.includes(textContent) ? removeItem(previousFilter.categories, textContent) : previousFilter.categories.push(textContent)
@@ -22,6 +38,7 @@ const FilterModal = ({ categories }) => {
     setClickCategory(!clickCategory)
   }
   const handleChangePrice = ({ target: { name, value } }) => {
+    if (!removePrice) setMaxInputValue({ })
     setFilter(
       {
         ...filter, price: { ...filter.price, [name]: parseFloat(value) }
@@ -38,6 +55,7 @@ const FilterModal = ({ categories }) => {
     setApplyFilter(true)
     setShowModal(false)
     console.log('hello, all good')
+    setRemovePrice(false)
   }
   const handleCancel = () => {
     const { min, max } = filter.price
@@ -46,6 +64,7 @@ const FilterModal = ({ categories }) => {
       setFilter(filter)
     }
     setShowModal(false)
+    setRemovePrice(false)
   }
 
   return (
@@ -76,7 +95,7 @@ const FilterModal = ({ categories }) => {
                     <Spinner />
                   </div>}
                 {
-                     categories && categories.map((category, index) => (
+                     categories && categories.length > 0 && categories.map((category, index) => (
                        <Button onClick={(e) => { handleClickCategory(e) }} className={`text-nord3 border-nord1 dark:text-nord6 dark:border-nord6 shadow border hover:border-nord10 dark:hover:border-nord8 dark:hover:text-nord8 hover:text-nord10 ${filter.categories.includes(category) && 'border-nord10 dark:border-nord8 dark:text-nord8 text-nord10 font-bold'}`} key={index}>{category}</Button>
                      ))
                     }
@@ -85,8 +104,8 @@ const FilterModal = ({ categories }) => {
             <div>
               <h4 className='text-xl font-medium mb-4'>Price</h4>
               <div className='grid grid-cols-2 gap-5'>
-                <Input type='number' onChange={(e) => { handleChangePrice(e) }} name='min' min={0} placeholder='Minimum' />
-                <Input type='number' onChange={(e) => { handleChangePrice(e) }} name='max' min={0} placeholder='Maximum' />
+                <Input type='number' onChange={(e) => { handleChangePrice(e) }} name='min' {...minInputValue} min={0} placeholder='Minimum' />
+                <Input type='number' onChange={(e) => { handleChangePrice(e) }} name='max' {...maxInputValue} min={0} placeholder='Maximum' />
               </div>
             </div>
             <div className='grid grid-cols-2 gap-5'>

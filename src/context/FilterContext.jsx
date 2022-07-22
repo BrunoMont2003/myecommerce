@@ -11,7 +11,7 @@ function FilterProvider (props) {
   const [sortBy, setSortBy] = useState('newest')
   const [applyFilter, setApplyFilter] = useState(null)
   const [changeFilter, setChangeFilter] = useState(null)
-
+  const [removePrice, setRemovePrice] = useState(null)
   const value = {
     filter,
     setFilter,
@@ -20,7 +20,9 @@ function FilterProvider (props) {
     applyFilter,
     setApplyFilter,
     changeFilter,
-    setChangeFilter
+    setChangeFilter,
+    removePrice,
+    setRemovePrice
   }
   return (
     <FilterContext.Provider value={value} {...props} />
