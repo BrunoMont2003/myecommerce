@@ -11,12 +11,10 @@ import Spinner from '../common/Spinner'
 const FilterModal = ({ categories }) => {
   const [showModal, setShowModal] = useState(false)
   const [clickCategory, setClickCategory] = useState(false)
-  const [changePrice, setChangePrice] = useState(null)
-  const [submitted, setSubmitted] = useState(false)
-  const { filter, setFilter } = useFilterContext()
+  const { filter, setFilter, setApplyFilter, applyFilter, changeFilter, setChangeFilter } = useFilterContext()
   useEffect(() => {
-    console.log(filter)
-  }, [clickCategory, changePrice, submitted])
+    console.log('filter saved', filter.categories)
+  }, [applyFilter])
   const handleClickCategory = ({ target: { textContent } }) => {
     const previousFilter = filter
     filter.categories.includes(textContent) ? removeItem(previousFilter.categories, textContent) : previousFilter.categories.push(textContent)
@@ -24,10 +22,11 @@ const FilterModal = ({ categories }) => {
     setClickCategory(!clickCategory)
   }
   const handleChangePrice = ({ target: { name, value } }) => {
-    const previousFilter = filter
-    previousFilter.price[name] = value
-    setFilter(previousFilter)
-    setChangePrice(value)
+    setFilter(
+      {
+        ...filter, price: { ...filter.price, [name]: parseFloat(value) }
+      }
+    )
   }
   const handleApplyFilters = () => {
     const { min, max } = filter.price
@@ -35,9 +34,18 @@ const FilterModal = ({ categories }) => {
       filter.price.max = 0
       setFilter(filter)
     }
-    setSubmitted(!submitted)
+    setChangeFilter(!changeFilter)
+    setApplyFilter(true)
     setShowModal(false)
     console.log('hello, all good')
+  }
+  const handleCancel = () => {
+    const { min, max } = filter.price
+    if (max <= min) {
+      filter.price.max = 0
+      setFilter(filter)
+    }
+    setShowModal(false)
   }
 
   return (
@@ -52,7 +60,7 @@ const FilterModal = ({ categories }) => {
         size='lg'
         popup
         position='center'
-        onClose={() => { setShowModal(false) }}
+        onClose={() => { handleCancel() }}
       >
         <Modal.Header />
         <Modal.Body>
@@ -77,12 +85,12 @@ const FilterModal = ({ categories }) => {
             <div>
               <h4 className='text-xl font-medium mb-4'>Price</h4>
               <div className='grid grid-cols-2 gap-5'>
-                <Input type='number' onChange={(e) => { handleChangePrice(e) }} name='min' min={0} value={filter.price.min} placeholder='Minimum' />
-                <Input type='number' onChange={(e) => { handleChangePrice(e) }} name='max' min={0} value={filter.price.max} placeholder='Maximum' />
+                <Input type='number' onChange={(e) => { handleChangePrice(e) }} name='min' min={0} placeholder='Minimum' />
+                <Input type='number' onChange={(e) => { handleChangePrice(e) }} name='max' min={0} placeholder='Maximum' />
               </div>
             </div>
             <div className='grid grid-cols-2 gap-5'>
-              <Button className='border border-nord9 text-nord9 dark:border-nord8 dark:text-nord8 font-bold hover:bg-nord5 dark:hover:bg-nord2' onClick={() => setShowModal(false)}>Cancel</Button>
+              <Button className='border border-nord9 text-nord9 dark:border-nord8 dark:text-nord8 font-bold hover:bg-nord5 dark:hover:bg-nord2' onClick={() => handleCancel()}>Cancel</Button>
               <Button className='text-nord4 dark:text-nord1 bg-nord8 font-bold hover:bg-nord9' onClick={() => handleApplyFilters()}>Apply Filters</Button>
             </div>
           </div>

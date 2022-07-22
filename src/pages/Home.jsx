@@ -1,17 +1,18 @@
+import { faClose } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useState } from 'react'
 import Carousel from '../components/Carousel'
 import Catalogue from '../components/Catalogue'
-import Spinner from '../components/common/Spinner'
 import FilterModal from '../components/FilterModal'
 import { useFilterContext } from '../context/FilterContext'
 import Layout from '../layouts'
 import { getCategories } from '../services/Items'
 const Home = () => {
   const [categories, setCategories] = useState(null)
-  const { sortBy, setSortBy } = useFilterContext()
+  const { sortBy, setSortBy, filter, applyFilter, changeFilter } = useFilterContext()
   useEffect(() => {
     fetchCategories()
-  }, [])
+  }, [changeFilter])
 
   const fetchCategories = async () => {
     const result = await getCategories()
@@ -40,6 +41,32 @@ const Home = () => {
             </select>
           </div>
         </div>
+        {applyFilter && (filter.categories.length > 0 || filter.price.min !== 0 || filter.price.max !== 0) &&
+          <div className='filter-items my-5 flex flex-wrap gap-5'>
+            {
+              filter.price.min !== 0 &&
+                <span className='rounded cursor-pointer py-2 px-3 bg-nord8 text-slate-600 font-bold'>
+                  min: $ {filter.price.min}
+                  <FontAwesomeIcon icon={faClose} className='ml-3' />
+                </span>
+            }
+            {
+              filter.price.max !== 0 &&
+                <span className='rounded cursor-pointer py-2 px-3 bg-nord8 text-slate-600 font-bold'>
+                  max: $ {filter.price.max}
+                  <FontAwesomeIcon icon={faClose} className='ml-3' />
+                </span>
+            }
+
+            {
+            filter.categories.map((category, index) => (
+              <span className='rounded cursor-pointer py-2 px-3 bg-nord8 text-slate-600' key={index}>{category}
+                <FontAwesomeIcon icon={faClose} className='ml-3' />
+              </span>
+            ))
+            }
+
+          </div>}
         <Catalogue />
       </div>
     </Layout>
