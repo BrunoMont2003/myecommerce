@@ -25,6 +25,5 @@ export const getCategories = async () => {
     const category = item.category
     !categories.includes(category) && category && categories.push(category)
   }
-  console.log(categories)
   return categories
 }

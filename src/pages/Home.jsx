@@ -1,23 +1,30 @@
 import { faClose } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useEffect, useState } from 'react'
+import { useEffect,  } from 'react'
 import Carousel from '../components/Carousel'
 import Catalogue from '../components/Catalogue'
 import FilterModal from '../components/FilterModal'
 import { useFilterContext } from '../context/FilterContext'
+import { useItemsContext } from '../context/ItemsContext'
 import Layout from '../layouts'
-import { getCategories } from '../services/Items'
+import { getAllItems, getCategories } from '../services/Items'
 import { removeItem } from '../Utils/Array'
 const Home = () => {
-  const [categories, setCategories] = useState(null)
+  const { categories, setCategories } = useItemsContext()
+  const { items, setItems } = useItemsContext()
   const { sortBy, setSortBy, filter, setFilter, applyFilter, setRemovePrice } = useFilterContext()
   useEffect(() => {
-    fetchCategories()
+    categories.length === 0 && fetchCategories()
+    items.length === 0 && fetchItems()
   }, [applyFilter])
 
   const fetchCategories = async () => {
     const result = await getCategories()
     setCategories(result)
+  }
+  const fetchItems = async () => {
+    const { items: result } = await getAllItems()
+    setItems(result)
   }
   const handleChangeSort = ({ target: { value } }) => {
     console.log(value)
@@ -86,7 +93,7 @@ const Home = () => {
             }
 
           </div>}
-        <Catalogue />
+        <Catalogue items={items} />
       </div>
     </Layout>
   )
