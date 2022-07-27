@@ -8,7 +8,7 @@ function FilterProvider (props) {
       max: 0
     }
   })
-  const [sortBy, setSortBy] = useState('newest')
+  const [sortBy, setSortBy] = useState('oldest')
   const [applyFilter, setApplyFilter] = useState(null)
   const [changeFilter, setChangeFilter] = useState(null)
   const [removePrice, setRemovePrice] = useState(null)

@@ -20,7 +20,6 @@ const Home = () => {
     allItems.length === 0 && fetchAllItems()
     categories.length === 0 && fetchCategories()
     allItems.length !== 0 && fetchItems(filter.categories, sortBy)
-    console.log('tenemos que hacer una peticion')
   }, [applyFilter, sortBy, changeFilter])
 
   const fetchCategories = async () => {
@@ -76,8 +75,8 @@ const Home = () => {
           <div className='flex gap-2 justify-end items-center'>
             <span>Sort by</span>
             <select value={sortBy} onChange={(e) => handleChangeSort(e)} className='bg-transparent border-0 focus:outline-none focus:ring-transparent font-bold'>
-              <option value='newest'>newest</option>
               <option value='oldest'>oldest</option>
+              <option value='newest'>newest</option>
               <option value='lowest price'>lowest price</option>
               <option value='highest price'>highest price</option>
             </select>

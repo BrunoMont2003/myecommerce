@@ -23,7 +23,7 @@ const filterByCategories = (items, categories = []) => {
   )
   return filteredItems
 }
-const sortItemsBy = (items, sortBy = 'newest') => {
+const sortItemsBy = (items, sortBy = 'oldest') => {
   if (sortBy === 'newest') {
     return items.sort((a, b) => b.createdAt - a.createdAt)
   }
