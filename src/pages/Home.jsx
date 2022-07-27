@@ -1,38 +1,55 @@
 import { faClose } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useEffect,  } from 'react'
+import { useEffect, useState } from 'react'
 import Carousel from '../components/Carousel'
 import Catalogue from '../components/Catalogue'
+import Spinner from '../components/common/Spinner'
 import FilterModal from '../components/FilterModal'
 import { useFilterContext } from '../context/FilterContext'
 import { useItemsContext } from '../context/ItemsContext'
+import { getItems } from '../helpers/items'
 import Layout from '../layouts'
-import { getAllItems, getCategories } from '../services/Items'
-import { removeItem } from '../Utils/Array'
+import { getCategories, getAllItems } from '../services/Items'
+import { removeItem } from '../utils/Array'
 const Home = () => {
   const { categories, setCategories } = useItemsContext()
-  const { items, setItems } = useItemsContext()
-  const { sortBy, setSortBy, filter, setFilter, applyFilter, setRemovePrice } = useFilterContext()
+  const { items, setItems, allItems, setAllItems } = useItemsContext()
+  const { sortBy, setSortBy, filter, setFilter, setChangeFilter, changeFilter, applyFilter, setRemovePrice } = useFilterContext()
+  const [loading, setLoading] = useState(true)
   useEffect(() => {
+    allItems.length === 0 && fetchAllItems()
     categories.length === 0 && fetchCategories()
-    items.length === 0 && fetchItems()
-  }, [applyFilter])
+    allItems.length !== 0 && fetchItems(filter.categories, sortBy)
+    console.log('tenemos que hacer una peticion')
+  }, [applyFilter, sortBy, changeFilter])
 
   const fetchCategories = async () => {
     const result = await getCategories()
     setCategories(result)
   }
-  const fetchItems = async () => {
-    const { items: result } = await getAllItems()
+  const fetchItems = (categories, sortBy) => {
+    setLoading(true)
+    const result = getItems(allItems, categories, sortBy)
+    console.log(result)
     setItems(result)
+    setTimeout(() => {
+      setLoading(false)
+    }, 500)
+  }
+  const fetchAllItems = async () => {
+    setLoading(true)
+    const { items: result } = await getAllItems()
+    setAllItems(result)
+    setItems(result)
+    setLoading(false)
   }
   const handleChangeSort = ({ target: { value } }) => {
-    console.log(value)
     setSortBy(value)
   }
   const handleDeleteCategory = ({ target: { textContent: category } }) => {
     removeItem(filter.categories, category)
     setFilter({ ...filter })
+    setChangeFilter(!changeFilter)
   }
   const handleDeletePrice = ({ target: { textContent: name } }) => {
     name = name.split(':')[0].trim()
@@ -60,6 +77,7 @@ const Home = () => {
             <span>Sort by</span>
             <select value={sortBy} onChange={(e) => handleChangeSort(e)} className='bg-transparent border-0 focus:outline-none focus:ring-transparent font-bold'>
               <option value='newest'>newest</option>
+              <option value='oldest'>oldest</option>
               <option value='lowest price'>lowest price</option>
               <option value='highest price'>highest price</option>
             </select>
@@ -93,7 +111,13 @@ const Home = () => {
             }
 
           </div>}
-        <Catalogue items={items} />
+        {loading
+          ? (
+            <div className='my-5 flex w-full items-center justify-center'>
+              <Spinner />
+            </div>
+            )
+          : <Catalogue items={items} />}
       </div>
     </Layout>
   )
