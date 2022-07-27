@@ -2,13 +2,13 @@ import axios from 'axios'
 
 const ENDPOINT =
   (import.meta.env.VITE_ECOMMERCE_API ??
-  'https://ecomerce-master.herokuapp.com/api/v1') + '/item'
+    'https://ecomerce-master.herokuapp.com/api/v1') + '/item'
 export const getAllItems = async () => {
   try {
     const { data: items, status } = await axios.get(ENDPOINT)
     return {
       status,
-      items
+      items: items.filter(({ isActive }) => isActive)
     }
   } catch (error) {
     return {

@@ -9,10 +9,10 @@ const Catalogue = ({ items }) => {
             <Spinner />
           </div>
       }
-      <section className='my-5 gap-5 flex flex-wrap'>
+      <section className='my-5 gap-5 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 pt-5'>
         {
         items.length > 0 && items.map((item, index) => (
-          <ECard key={index} />
+          <ECard key={index} item={item} />
         ))
         }
       </section>
