@@ -1,11 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Button from '../common/Button'
 import Counter from '../Counter'
 import { nFormatter } from '../../utils/Number'
+import { AuthContext } from '../../context/AuthContext'
 // eslint-disable-next-line import/no-absolute-path
 import errorImage from '/public/images/error.jpg'
 const ItemDetails = ({ item }) => {
   const [imgSrc, setImgSrc] = useState(null)
+  const { isAuth } = useContext(AuthContext)
   useEffect(() => {
     setImgSrc(item.image)
   }, [])
@@ -33,11 +35,20 @@ const ItemDetails = ({ item }) => {
           <span className='text-slate-400 font-medium dark:text-gray-400'>Unit Price</span>
           <span className='font-black text-xl text-nord0 dark:text-nord6'>${nFormatter(item.price)}</span>
         </div>
-        <div className='grid grid-cols-3 gap-5 py-2 fixed md:relative bottom-0 bg-nord6 dark:bg-nord0 w-full px-5 md:px-10'>
-          <Counter onChange={(e) => { }} className='' />
-          <Button className='bg-nord10 font-bold text-nord6 col-span-2'>Add to Cart</Button>
-        </div>
-        <div className='pt-16 px-5 md:px-10 flex justify-end'>
+        {
+          isAuth && (
+            <div className='grid grid-cols-3 gap-5 py-2 fixed md:relative bottom-0 bg-nord6 dark:bg-nord0 w-full px-5 md:px-10'>
+              <Counter onChange={(e) => { }} className='' />
+              <Button className='bg-nord10 font-bold text-nord6 col-span-2'>Add to Cart</Button>
+            </div>
+          )
+}
+        <div className='pt-16 px-5 md:px-10 flex justify-between'>
+          {
+            !isAuth && (
+              <Button to='/login' className='bg-nord10 font-bold text-nord6 col-span-2 '>Log in to add to Cart</Button>
+            )
+          }
           <Button className='border border-nord0 dark:border-nord4' to='/'>Go Back</Button>
         </div>
       </div>

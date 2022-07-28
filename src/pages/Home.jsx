@@ -40,9 +40,11 @@ const Home = () => {
     setLoading(true)
     const { items: result } = await getAllItems()
     setAllItems(result)
-    const firstPage = getItems(result)
-    setItems(firstPage)
-    setLoading(false)
+    if (result.length > 0) {
+      const firstPage = getItems(result)
+      setItems(firstPage)
+      setLoading(false)
+    }
   }
   const handleChangeSort = ({ target: { value } }) => {
     setSortBy(value)

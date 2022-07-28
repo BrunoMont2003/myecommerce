@@ -6,6 +6,7 @@ import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { login } from '../../services/User'
 import { useContext, useState } from 'react'
 import { AuthContext } from '../../context/AuthContext'
+import { useItemsContext } from '../../context/ItemsContext'
 
 const inputs = [
   {
@@ -25,6 +26,7 @@ const Login = () => {
   const navigate = useNavigate()
   const [error, setError] = useState(null)
   const { loginUser, isAuth } = useContext(AuthContext)
+  const { lastLocation } = useItemsContext()
   const handleLogin = async (data) => {
     const { data: result, message } = await login(data)
     if (message) {
@@ -32,7 +34,7 @@ const Login = () => {
       return
     }
     loginUser(result.token)
-    navigate('/')
+    lastLocation ? navigate(lastLocation) : navigate('/')
     setError(null)
   }
   if (isAuth) {

@@ -4,13 +4,16 @@ function ItemsProvider (props) {
   const [items, setItems] = useState([])
   const [allItems, setAllItems] = useState([])
   const [categories, setCategories] = useState([])
+  const [lastLocation, setLastLocation] = useState(null)
   const value = {
     items,
     setItems,
     allItems,
     setAllItems,
     categories,
-    setCategories
+    setCategories,
+    lastLocation,
+    setLastLocation
   }
   return (
     <ItemsContext.Provider value={value} {...props} />

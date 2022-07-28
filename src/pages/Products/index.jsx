@@ -4,16 +4,18 @@ import { useParams } from 'react-router-dom'
 import Spinner from '../../components/common/Spinner'
 
 import ItemDetails from '../../components/ItemDetails'
+import { useItemsContext } from '../../context/ItemsContext'
 import Layout from '../../layouts/Authenticated'
 import { getOneItem } from '../../services/Items'
 
 const Product = () => {
   const { id } = useParams()
   const [item, setItem] = useState(null)
+  const { setLastLocation } = useItemsContext()
 
   useEffect(() => {
-    console.log('fetch product')
     fetchItem()
+    setLastLocation('/items/' + id)
   }, [])
   const fetchItem = async () => {
     const { item: result } = await getOneItem(id)

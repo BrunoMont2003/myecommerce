@@ -1,6 +1,8 @@
+import Layout from '../../layouts/Authenticated'
+
 const CreateProduct = () => {
   return (
-    <div>CreateProduct</div>
+    <Layout>a</Layout>
   )
 }
 

@@ -3,15 +3,17 @@ import { faBars, faCartShopping } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import Logo from '../common/Logo'
 import './style.css'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import HiddenPanel from './HiddenPanel'
 import DarkModeToggle from '../DarkModeToggle'
 import NavItems from './NavItems'
 import SearchBar from '../common/SearchBar'
-import { faUser } from '@fortawesome/free-regular-svg-icons'
+import { Dropdown } from 'flowbite-react'
+import { AuthContext } from '../../context/AuthContext'
 
 const Navbar = () => {
   const [panelVisibility, setPanelVisibility] = useState(false)
+  const { isAuth, user } = useContext(AuthContext)
   const togglePanelVisibility = () => {
     setPanelVisibility(!panelVisibility)
   }
@@ -27,11 +29,42 @@ const Navbar = () => {
           <Link to='#'>
             <FontAwesomeIcon icon={faCartShopping} className='text-lg' />
           </Link>
-          <Link to='#' className='hidden lg:block'>
-            <FontAwesomeIcon icon={faUser} className='text-lg' />
-          </Link>
           <DarkModeToggle className='hidden lg:block' />
+          <span className='hidden lg:block'>
+            <Dropdown
+              label={isAuth ? user && (user.first_name + ' ' + user.last_name) : 'Profile'}
+              inline
+            >
+              {
+                isAuth
+                  ? (
+                    <>
+                      {
+                        user && user.role === 'ADMIN' && (
+                          <Dropdown.Item>
+                            <Link to='/items/create'>Add Product</Link>
+                          </Dropdown.Item>
+                        )
+                      }
+                      <Dropdown.Item>
+                        <Link to='/logout'>Logout</Link>
+                      </Dropdown.Item>
 
+                    </>
+                    )
+                  : (
+                    <>
+                      <Dropdown.Item>
+                        <Link to='/login'>Login</Link>
+                      </Dropdown.Item>
+                      <Dropdown.Item>
+                        <Link to='/signup'>Signup</Link>
+                      </Dropdown.Item>
+                    </>
+                    )
+              }
+            </Dropdown>
+          </span>
           <FontAwesomeIcon icon={faBars} className='block lg:hidden text-lg cursor-pointer' onClick={togglePanelVisibility} />
         </div>
       </nav>

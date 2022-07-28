@@ -5,9 +5,9 @@ import Logo from '../common/Logo'
 import DarkModeToggle from '../DarkModeToggle'
 import './style.css'
 import Button from '../common/Button'
-import NavItems from './NavItems'
 import { useContext } from 'react'
 import { AuthContext } from '../../context/AuthContext'
+import NavItem from './NavItem'
 const HiddenPanel = ({ open = true, toggle }) => {
   const { user, isAuth } = useContext(AuthContext)
   return (
@@ -41,7 +41,21 @@ const HiddenPanel = ({ open = true, toggle }) => {
           }
         </div>
       </div>
-      <NavItems className='p-5  grid place-content-stretch place-items-stretch' />
+      <div className='p-5  grid place-content-stretch place-items-stretch'>
+        {
+          user && user.role === 'ADMIN' && (
+            <ul className='list-none'>
+
+              <NavItem object={{
+                path: '/items/create',
+                name: 'Create Item'
+              }}
+              />
+            </ul>
+
+          )
+        }
+      </div>
     </div>
   )
 }
