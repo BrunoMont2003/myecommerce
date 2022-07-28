@@ -8,7 +8,7 @@ import Button from '../common/Button'
 import NavItems from './NavItems'
 const HiddenPanel = ({ open = true, toggle }) => {
   return (
-    <div className={`min-h-screen w-full z-10  absolute top-0 transition-all duration-200 ease-in  ${open ? '-left-0' : '-left-full'} bg-nord4 dark:bg-nord1 px-5 py-7 lg:hidden`}>
+    <div className={` w-full z-10 fixed flex flex-col flex-1 top-0 transition-all duration-200 ease-in  ${open ? '-left-0' : '-left-full'} bg-nord4 dark:bg-nord1 px-5 py-7 lg:hidden`}>
       <div className='flex items-center justify-between pb-6 '>
         <Logo />
         <div className=''>
