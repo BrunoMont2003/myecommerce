@@ -42,19 +42,24 @@ const HiddenPanel = ({ open = true, toggle }) => {
         </div>
       </div>
       <div className='p-5  grid place-content-stretch place-items-stretch'>
-        {
+        <ul className='list-none'>
+          <NavItem object={{
+            path: '/',
+            name: 'Home'
+          }}
+          />
+          {
           user && user.role === 'ADMIN' && (
-            <ul className='list-none'>
 
-              <NavItem object={{
-                path: '/items/create',
-                name: 'Create Item'
-              }}
-              />
-            </ul>
+            <NavItem object={{
+              path: '/items/create',
+              name: 'Create Item'
+            }}
+            />
 
           )
-        }
+            }
+        </ul>
       </div>
     </div>
   )

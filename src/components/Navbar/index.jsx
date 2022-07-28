@@ -6,7 +6,6 @@ import './style.css'
 import { useContext, useState } from 'react'
 import HiddenPanel from './HiddenPanel'
 import DarkModeToggle from '../DarkModeToggle'
-import NavItems from './NavItems'
 import SearchBar from '../common/SearchBar'
 import { Dropdown } from 'flowbite-react'
 import { AuthContext } from '../../context/AuthContext'
@@ -23,7 +22,6 @@ const Navbar = () => {
         <Link to='/'>
           <Logo />
         </Link>
-        <NavItems className='gap-5 hidden lg:flex' />
         <div className='flex lg:items-center gap-5 text-nord2 dark:text-nord5'>
           <SearchBar />
           <Link to='#'>
