@@ -2,7 +2,7 @@ import LogoIcon from '../../components/common/Logo/icon'
 import Form from '../../components/common/Form'
 import DarkModeToggle from '../../components/DarkModeToggle'
 import Guest from '../../layouts/Guest'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { login } from '../../services/User'
 import { useContext, useState } from 'react'
 import { AuthContext } from '../../context/AuthContext'
@@ -24,7 +24,7 @@ const inputs = [
 const Login = () => {
   const navigate = useNavigate()
   const [error, setError] = useState(null)
-  const { loginUser } = useContext(AuthContext)
+  const { loginUser, isAuth } = useContext(AuthContext)
   const handleLogin = async (data) => {
     const { data: result, message } = await login(data)
     if (message) {
@@ -34,6 +34,9 @@ const Login = () => {
     loginUser(result.token)
     navigate('/')
     setError(null)
+  }
+  if (isAuth) {
+    return <Navigate to='/' replace />
   }
   return (
     <Guest>
