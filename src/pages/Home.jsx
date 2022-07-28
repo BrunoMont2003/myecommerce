@@ -1,5 +1,6 @@
 import { faClose } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Pagination } from 'flowbite-react'
 import { useEffect, useState } from 'react'
 import Carousel from '../components/Carousel'
 import Catalogue from '../components/Catalogue'
@@ -16,11 +17,12 @@ const Home = () => {
   const { items, setItems, allItems, setAllItems } = useItemsContext()
   const { sortBy, setSortBy, filter, setFilter, setChangeFilter, changeFilter, applyFilter, setRemovePrice, question, setQuestion } = useFilterContext()
   const [loading, setLoading] = useState(true)
+  const [page, setPage] = useState(1)
   useEffect(() => {
     allItems.length === 0 && fetchAllItems()
     categories.length === 0 && fetchCategories()
     allItems.length !== 0 && fetchItems(filter.categories, sortBy)
-  }, [applyFilter, sortBy, changeFilter])
+  }, [applyFilter, sortBy, changeFilter, page])
 
   const fetchCategories = async () => {
     const result = await getCategories()
@@ -28,7 +30,7 @@ const Home = () => {
   }
   const fetchItems = (categories, sortBy) => {
     setLoading(true)
-    const result = getItems(allItems, categories, sortBy, question)
+    const result = getItems(allItems, categories, sortBy, question, page)
     setItems(result)
     setTimeout(() => {
       setLoading(false)
@@ -38,7 +40,8 @@ const Home = () => {
     setLoading(true)
     const { items: result } = await getAllItems()
     setAllItems(result)
-    setItems(result)
+    const firstPage = getItems(result)
+    setItems(firstPage)
     setLoading(false)
   }
   const handleChangeSort = ({ target: { value } }) => {
@@ -62,6 +65,9 @@ const Home = () => {
   const handleDeleteQuestion = () => {
     setQuestion('')
     setChangeFilter(!changeFilter)
+  }
+  const onPageChange = (e) => {
+    setPage(e)
   }
 
   return (
@@ -123,13 +129,36 @@ const Home = () => {
             </div>
             )
           : ''}
+        {page > 1
+          ? (
+            <div className='py-5 flex justify-end '>
+              <button onClick={() => setPage(1)} className='font-bold bg-green-400 rounded-full px-5 py-2 text-slate-800'>
+                <span>
+                  Page {page}
+                </span>
+                <FontAwesomeIcon className='ml-2' icon={faClose} />
+              </button>
+            </div>
+            )
+          : ''}
         {loading
           ? (
             <div className='my-5 flex w-full items-center justify-center'>
               <Spinner />
             </div>
             )
-          : <Catalogue items={items} />}
+          : (
+            <>
+              <Catalogue items={items} />
+              <div className='flex justify-center'>
+                <Pagination
+                  currentPage={page}
+                  totalPages={100}
+                  onPageChange={onPageChange}
+                />
+              </div>
+            </>
+            )}
       </div>
     </Layout>
   )

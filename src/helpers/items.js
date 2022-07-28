@@ -3,21 +3,22 @@ export const getItems = (
   categories = [],
   sortBy = 'newest',
   question,
-  size = 50,
-  offset = 0
+  page = 1,
+  size = 25
 ) => {
+  const offset = size * (page - 1)
   items = items.filter(({ isActive }) => isActive)
   items = sortItemsBy(items, sortBy)
 
   if (question) {
-    items = searchByName(items, question)
+    items = searchByName(items, question).slice(offset, offset + size)
   }
 
   if (categories.length === 0) {
-    return items
+    return items.slice(offset, offset + size)
   }
   if (categories.length > 0) {
-    return filterByCategories(items, categories)
+    return filterByCategories(items, categories).slice(offset, offset + size)
   }
 }
 

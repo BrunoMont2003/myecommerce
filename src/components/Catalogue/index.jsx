@@ -1,4 +1,3 @@
-import Spinner from '../common/Spinner'
 import ECard from '../ECard'
 const Catalogue = ({ items }) => {
   return (
@@ -16,6 +15,7 @@ const Catalogue = ({ items }) => {
         ))
         }
       </section>
+
     </>
   )
 }
