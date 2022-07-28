@@ -19,3 +19,21 @@ export const login = async (data) => {
     }
   }
 }
+
+export const getUserByToken = async (token) => {
+  const url = `${ENDPOINT}/user/me`
+  try {
+    const {
+      data: { user }
+    } = await axios.get(url, {
+      headers: {
+        Authorization: `JWT ${token}`
+      }
+    })
+    return user
+  } catch (error) {
+    return {
+      message: error.response.data.message
+    }
+  }
+}

@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from 'react'
-import getPayload from '../utils/getPayload'
+import { getUserByToken } from '../services/User'
+// import getPayload from '../utils/getPayload'
 
 // #1 Crear el contexto
 export const AuthContext = createContext()
@@ -15,8 +16,9 @@ const AuthContextProvider = (props) => {
   // Lógica que se ejecuta cuando se inicia una sesión
   const loginUser = (token) => {
     window.localStorage.setItem('token', token)
-    const decoded = getPayload(token)
-    setUser(decoded)
+    fetchUser(token)
+    // const decoded = getPayload(token)
+    // setUser(decoded)
     setIsAuth(true)
   }
 
@@ -31,11 +33,17 @@ const AuthContextProvider = (props) => {
   useEffect(() => {
     const item = window.localStorage.getItem('token')
     if (item) {
-      const decoded = getPayload(item)
-      setUser(decoded)
+      // const decoded = getPayload(item)
+      // setUser(decoded)
+      fetchUser(item)
       setIsAuth(true)
     }
   }, [])
+
+  const fetchUser = async (token) => {
+    const me = await getUserByToken(token)
+    setUser(me)
+  }
 
   return (
     <AuthContext.Provider value={{
