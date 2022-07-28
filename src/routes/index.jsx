@@ -1,16 +1,35 @@
+// import { useContext } from 'react'
 import { Route, Routes } from 'react-router-dom'
+// import { AuthContext } from '../context/AuthContext'
 import Home from '../pages/Home'
-import Product from '../pages/Product'
+import Product from '../pages/Products'
+import Login from '../pages/auth/Login'
+import Logout from '../pages/auth/Logout'
+import Signup from '../pages/auth/Signup'
+// import Protected from '../hoc/Protected'
 
 const MyRoutes = () => {
+  // const { isAuth } = useContext(AuthContext)
   return (
     <Routes>
+      <Route path='/login' element={<Login />} />
+      <Route path='/signup' element={<Signup />} />
+      {/* <Route
+        path='/'
+        element={
+          <Protected isLoggedIn={isAuth}>
+            <Home />
+          </Protected>
+      }
+      /> */}
       <Route
         path='/' element={<Home />}
       />
       <Route
         path='/items/:id' element={<Product />}
       />
+
+      <Route path='/logout' element={<Logout />} />
     </Routes>
   )
 }

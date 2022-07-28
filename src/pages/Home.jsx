@@ -9,7 +9,7 @@ import FilterModal from '../components/FilterModal'
 import { useFilterContext } from '../context/FilterContext'
 import { useItemsContext } from '../context/ItemsContext'
 import { getItems } from '../helpers/items'
-import Layout from '../layouts'
+import Layout from '../layouts/Authenticated'
 import { getCategories, getAllItems } from '../services/Items'
 import { removeItem } from '../utils/Array'
 const Home = () => {

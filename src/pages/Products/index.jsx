@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-import Spinner from '../components/common/Spinner'
+import Spinner from '../../components/common/Spinner'
 
-import ItemDetails from '../components/ItemDetails'
-import Layout from '../layouts'
-import { getOneItem } from '../services/Items'
+import ItemDetails from '../../components/ItemDetails'
+import Layout from '../../layouts/Authenticated'
+import { getOneItem } from '../../services/Items'
 
 const Product = () => {
   const { id } = useParams()

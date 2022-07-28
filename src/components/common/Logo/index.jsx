@@ -1,5 +1,4 @@
-import { faMountainSun } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import LogoIcon from './icon'
 import './style.css'
 
 const Logo = () => {
@@ -13,7 +12,7 @@ const Logo = () => {
           mountain
         </span>
       </h3>
-      <FontAwesomeIcon icon={faMountainSun} className='text-nord10' />
+      <LogoIcon />
     </div>
   )
 }
