@@ -37,6 +37,9 @@ const ItemDetails = ({ item }) => {
           <Counter onChange={(e) => { }} className='' />
           <Button className='bg-nord10 font-bold text-nord6 col-span-2'>Add to Cart</Button>
         </div>
+        <div className='pt-16 px-5 md:px-10 flex justify-end'>
+          <Button className='border border-nord0 dark:border-nord4' to='/'>Go Back</Button>
+        </div>
       </div>
     </section>
   )
