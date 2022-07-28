@@ -1,5 +1,5 @@
+/* eslint-disable import/no-absolute-path */
 import { Carousel } from 'flowbite-react'
-import React from 'react'
 import toys from '/images/toys.jpg'
 import sports from '/images/sports.jpg'
 import music from '/images/music.jpg'
@@ -21,7 +21,7 @@ const MyCarousel = () => {
   ]
   return (
 
-    <div className='mb-5 h-56 sm:h-64 md:h-96 lg:h-[80vh] xl:h-[calc(100vh-104px)]'>
+    <div className='mb-5 h-96 lg:h-[80vh] xl:h-[calc(100vh-104px)]'>
       <Carousel slideInterval={5000} indicators={false}>
         {
             items.map(({ img, caption }, index) => (

@@ -9,13 +9,19 @@ const SearchBar = () => {
   const { setItems, allItems } = useItemsContext()
   const { setQuestion } = useFilterContext()
   const input = useRef(null)
+  const button = useRef(null)
   const handleFocus = () => {
     input.current && input.current.focus()
     setFocus(true)
   }
   const handleBlur = (e) => {
     setFocus(false)
-    setItems(allItems)
+  }
+  const goToItems = () => {
+    window.scrollTo({
+      top: document.getElementById('items-section').offsetTop,
+      behavior: 'smooth'
+    })
   }
 
   const handleSearch = (e) => {
@@ -23,6 +29,8 @@ const SearchBar = () => {
     const items = searchByName(allItems, input.current.value)
     setQuestion(input.current.value)
     setItems(items)
+    setFocus(false)
+    goToItems()
   }
 
   return (
@@ -40,7 +48,12 @@ const SearchBar = () => {
           <div className='bg-nord4 absolute top-0 p-5 right-0 w-full h-[6.5rem] dark:bg-nord1 bg-nord-6 flex items-center justify-center ease-in-out duration-500 '>
             <form action='#' className='w-full flex gap-5 items-center'>
               <input autoFocus onFocus={handleFocus} type='text' ref={input} className=' rounded h-10 bg-transparent border  border-nord2 px-5 focus:outline-none w-full  hover:bg-slate-200 dark:bg-nord2 border-transparent dark:hover:placeholder:text-slate-50 dark:focus:placeholder:text-slate-100 focus:border-transparent focus:ring-nord3 focus:ring-offset-transparent' placeholder='Search' />
-              <button onClick={(e) => handleSearch(e)} className='bg-nord3 text-nord6 dark:bg-nord8 dark:text-nord0 h-[40px] px-5 rounded '>Search</button>
+              <button
+                ref={button}
+                to='items-section'
+                onClick={(e) => handleSearch(e)} className='bg-nord3 text-nord6 dark:bg-nord8 dark:text-nord0 py-2 cursor-pointer px-5 rounded '
+              >Search
+              </button>
               <button onClick={() => handleBlur()} type='button' className=' '>
                 <FontAwesomeIcon icon={faClose} />
               </button>

@@ -29,7 +29,6 @@ const Home = () => {
   const fetchItems = (categories, sortBy) => {
     setLoading(true)
     const result = getItems(allItems, categories, sortBy, question)
-    console.log(result)
     setItems(result)
     setTimeout(() => {
       setLoading(false)
@@ -68,7 +67,7 @@ const Home = () => {
   return (
     <Layout>
       <Carousel />
-      <div className='px-5 xl:w-[95%] xl:mx-auto py-5'>
+      <div className='px-5 xl:w-[95%] xl:mx-auto py-5' id='items-section'>
         <hr className='border my-3 dark:border-nord1' />
         <h2 className='text-3xl my-5'>
           Products
