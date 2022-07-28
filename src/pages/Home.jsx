@@ -14,7 +14,7 @@ import { removeItem } from '../utils/Array'
 const Home = () => {
   const { categories, setCategories } = useItemsContext()
   const { items, setItems, allItems, setAllItems } = useItemsContext()
-  const { sortBy, setSortBy, filter, setFilter, setChangeFilter, changeFilter, applyFilter, setRemovePrice } = useFilterContext()
+  const { sortBy, setSortBy, filter, setFilter, setChangeFilter, changeFilter, applyFilter, setRemovePrice, question, setQuestion } = useFilterContext()
   const [loading, setLoading] = useState(true)
   useEffect(() => {
     allItems.length === 0 && fetchAllItems()
@@ -28,7 +28,7 @@ const Home = () => {
   }
   const fetchItems = (categories, sortBy) => {
     setLoading(true)
-    const result = getItems(allItems, categories, sortBy)
+    const result = getItems(allItems, categories, sortBy, question)
     console.log(result)
     setItems(result)
     setTimeout(() => {
@@ -59,6 +59,10 @@ const Home = () => {
       }
     })
     setRemovePrice(name)
+  }
+  const handleDeleteQuestion = () => {
+    setQuestion('')
+    setChangeFilter(!changeFilter)
   }
 
   return (
@@ -110,6 +114,16 @@ const Home = () => {
             }
 
           </div>}
+        {question
+          ? (
+            <div className='py-5 flex'>
+              <span className='font-bold'>Results for {question}</span>
+              <button onClick={() => handleDeleteQuestion()} className='rounded-full bg-nord11 mx-2 w-6 h-6 flex items-center justify-center'>
+                <FontAwesomeIcon icon={faClose} />
+              </button>
+            </div>
+            )
+          : ''}
         {loading
           ? (
             <div className='my-5 flex w-full items-center justify-center'>

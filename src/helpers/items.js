@@ -2,11 +2,16 @@ export const getItems = (
   items,
   categories = [],
   sortBy = 'newest',
+  question,
   size = 50,
   offset = 0
 ) => {
   items = items.filter(({ isActive }) => isActive)
   items = sortItemsBy(items, sortBy)
+
+  if (question) {
+    items = searchByName(items, question)
+  }
 
   if (categories.length === 0) {
     return items
@@ -40,8 +45,7 @@ const sortItemsBy = (items, sortBy = 'oldest') => {
 
 export const searchByName = (items, name) => {
   name = name.toLowerCase()
-  return items.filter(
-    ({ product_name: productName, isActive }) =>
-      productName.toLowerCase().includes(name) && isActive
+  return items.filter(({ product_name: productName }) =>
+    productName.toLowerCase().includes(name)
   )
 }
