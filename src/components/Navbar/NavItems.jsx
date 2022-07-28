@@ -3,10 +3,10 @@ import NavItem from './NavItem'
 
 const NavItems = ({ className }) => {
   const categories = [
-    // { name: 'kids', path: '/' },
-    // { name: 'shoes', path: '/' },
-    // { name: 'computers', path: '/' },
-    // { name: 'sports', path: '/' }
+    { name: 'kids', path: '/' },
+    { name: 'shoes', path: '/' },
+    { name: 'computers', path: '/' },
+    { name: 'sports', path: '/' }
   ]
   return (
     <ul className={`${className}`}>
