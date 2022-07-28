@@ -1,6 +1,7 @@
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faClose, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useRef, useState } from 'react'
+import Button from '../Button'
 
 const SearchBar = () => {
   const [focus, setFocus] = useState(false)
@@ -12,6 +13,13 @@ const SearchBar = () => {
   const handleBlur = (e) => {
     setFocus(false)
   }
+
+  const handleSearch = (e) => {
+    e.preventDefault()
+    input.current.focus()
+    console.log(input.current.value)
+  }
+
   return (
     <>
       {
@@ -24,10 +32,13 @@ const SearchBar = () => {
 
       {
         focus &&
-          <div className='absolute top-0 p-5 right-0 w-full h-[6.5rem] dark:bg-nord1 bg-nord-6 flex items-center justify-center ease-in-out duration-500 '>
-            <form action='#' className='relative w-full'>
-              <input autoFocus onFocus={handleFocus} onBlur={handleBlur} type='text' ref={input} className=' rounded-lg h-10 bg-transparent border shadow border-gray-300 px-5 focus:outline-none w-full  hover:bg-slate-200 dark:hover:bg-slate-500 ease-in-out duration-500' placeholder='Search' />
-              <FontAwesomeIcon onClick={handleFocus} icon={faSearch} className='absolute right-5 top-3 text-nord3  dark:text-nord5' />
+          <div className='bg-nord4 absolute top-0 p-5 right-0 w-full h-[6.5rem] dark:bg-nord1 bg-nord-6 flex items-center justify-center ease-in-out duration-500 '>
+            <form action='#' className='w-full flex gap-5 items-center'>
+              <input autoFocus onFocus={handleFocus} type='text' ref={input} className=' rounded h-10 bg-transparent border  border-nord2 px-5 focus:outline-none w-full  hover:bg-slate-200 dark:bg-nord2 border-transparent dark:hover:placeholder:text-slate-50 dark:focus:placeholder:text-slate-100 focus:border-transparent focus:ring-nord3 focus:ring-offset-transparent' placeholder='Search' />
+              <button onClick={(e) => handleSearch(e)} className='bg-nord3 text-nord6 dark:bg-nord8 dark:text-nord0 h-[40px] px-5 rounded '>Search</button>
+              <button onClick={() => handleBlur()} type='button' className=' '>
+                <FontAwesomeIcon icon={faClose} />
+              </button>
             </form>
 
           </div>
