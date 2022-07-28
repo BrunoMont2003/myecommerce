@@ -19,6 +19,21 @@ export const login = async (data) => {
     }
   }
 }
+export const signup = async (data) => {
+  const url = `${ENDPOINT}/signup`
+  try {
+    const response = await axios.post(url, data)
+    if (response.status === 200) {
+      return {
+        data: response.data
+      }
+    }
+  } catch (error) {
+    return {
+      message: error.response.data.message
+    }
+  }
+}
 
 export const getUserByToken = async (token) => {
   const url = `${ENDPOINT}/user/me`

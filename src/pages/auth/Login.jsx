@@ -46,7 +46,14 @@ const Login = () => {
       </div>
       <div className='pt-10 min-w-full sm:min-w-[500px]'>
         <p className='text-center'>Enter your email address and password</p>
-        <Form inputs={inputs} action={async (data) => { handleLogin(data) }} errorMessage={error} />
+        <Form
+          inputs={inputs} action={async (data) => { handleLogin(data) }} errorMessage={error} buttonText='Log in' initialValues={
+          {
+            email: '',
+            password: ''
+          }
+        }
+        />
         <p className='pt-10 text-center'>Don't have an account yet ?
           <Link to='/signup' className='text-nord0 dark:text-nord6 font-bold'> Sign up</Link>
         </p>
