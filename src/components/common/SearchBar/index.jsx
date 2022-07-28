@@ -1,10 +1,11 @@
 import { faClose, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useRef, useState } from 'react'
-import Button from '../Button'
-
+import { useItemsContext } from '../../../context/ItemsContext'
+import { searchByName } from '../../../helpers/items'
 const SearchBar = () => {
   const [focus, setFocus] = useState(false)
+  const { setItems, allItems } = useItemsContext()
   const input = useRef(null)
   const handleFocus = () => {
     input.current && input.current.focus()
@@ -12,12 +13,13 @@ const SearchBar = () => {
   }
   const handleBlur = (e) => {
     setFocus(false)
+    setItems(allItems)
   }
 
   const handleSearch = (e) => {
     e.preventDefault()
-    input.current.focus()
-    console.log(input.current.value)
+    const items = searchByName(allItems, input.current.value)
+    setItems(items)
   }
 
   return (

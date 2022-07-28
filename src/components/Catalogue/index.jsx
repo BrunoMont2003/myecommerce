@@ -6,7 +6,7 @@ const Catalogue = ({ items }) => {
       {
         items.length === 0 &&
           <div className='my-5 flex w-full items-center justify-center'>
-            <Spinner />
+            No items found
           </div>
       }
       <section className='my-5 gap-5 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 pt-5'>

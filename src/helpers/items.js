@@ -37,3 +37,11 @@ const sortItemsBy = (items, sortBy = 'oldest') => {
     return items.sort((a, b) => b.price - a.price)
   }
 }
+
+export const searchByName = (items, name) => {
+  name = name.toLowerCase()
+  return items.filter(
+    ({ product_name: productName, isActive }) =>
+      productName.toLowerCase().includes(name) && isActive
+  )
+}
