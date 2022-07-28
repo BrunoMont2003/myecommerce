@@ -14,6 +14,16 @@ export const getAllItems = async () => {
     }
   }
 }
+export const getOneItem = async (id) => {
+  try {
+    const { data: item, status } = await axios.get(`${ENDPOINT}/${id}`)
+    return { item, status }
+  } catch (error) {
+    return {
+      message: error.message
+    }
+  }
+}
 export const getCategories = async () => {
   const { items, status, message } = await getAllItems()
   if (status !== 200) return { message }
