@@ -8,9 +8,9 @@ Permite inyectar lógica, al componente original.
 
 import { Navigate } from 'react-router-dom'
 
-const Protected = ({ isLoggedIn, children }) => {
-  if (!isLoggedIn) {
-    return <Navigate to='/login' replace />
+const Protected = ({ isAdmin, children }) => {
+  if (!isAdmin) {
+    return <Navigate to='/' replace />
   }
   return children
 }

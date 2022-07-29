@@ -10,7 +10,7 @@ import Protected from '../hoc/Protected'
 import CreateProduct from '../pages/Products/create'
 
 const MyRoutes = () => {
-  const { isAuth } = useContext(AuthContext)
+  const { isAuth, user } = useContext(AuthContext)
   return (
     <Routes>
       <Route path='/login' element={<Login />} />
@@ -24,7 +24,7 @@ const MyRoutes = () => {
       <Route
         path='/items/create'
         element={
-          <Protected isLoggedIn={isAuth}>
+          <Protected isAdmin={isAuth && user && (user.role === 'ADMIN')}>
             <CreateProduct />
           </Protected>
       }
