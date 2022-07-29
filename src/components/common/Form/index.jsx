@@ -28,21 +28,32 @@ const Form = ({ inputs, action, errorMessage, buttonText, initialValues }) => {
                   <option disabled value=''>Choose</option>
                   {
                     input.options.map((option, index) => (
-                      <option key={index} value={option.value}>{option.label}</option>
+                      <option key={index} value={option.value ?? option}>{option.label ?? option}</option>
                     ))
                   }
                 </select>
                 )
-              : <Input
-                  className='w-full'
-                  type={input.type}
-                  name={input.name}
-                  id={input.name}
-                  placeholder={input.placeholder}
-                  value={values[input.name]}
-                  onChange={handleInputChange}
-                  required
-                />
+              : input.type === 'textarea'
+
+                ? <textarea
+                    className='w-full block rounded bg-transparent dark:border-nord6 focus:ring-nord8 focus:outline-none border   focus:border-nord8 placeholder:text-nord2 dark:placeholder:text-nord4'
+                    name={input.name}
+                    id={input.name}
+                    placeholder={input.placeholder}
+                    value={values[input.name]}
+                    onChange={handleInputChange}
+                    required
+                  />
+                : <Input
+                    className='w-full'
+                    type={input.type}
+                    name={input.name}
+                    id={input.name}
+                    placeholder={input.placeholder}
+                    value={values[input.name]}
+                    onChange={handleInputChange}
+                    required
+                  />
           }
         </div>
       )

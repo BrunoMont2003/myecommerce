@@ -34,3 +34,17 @@ export const getCategories = async () => {
   }
   return categories
 }
+export const createItem = async (item) => {
+  try {
+    const { data } = await axios.post(ENDPOINT, item, {
+      headers: {
+        Authorization: `JWT ${window.localStorage.getItem('token')}`
+      }
+    })
+    return { data }
+  } catch (error) {
+    return {
+      message: error.message
+    }
+  }
+}
